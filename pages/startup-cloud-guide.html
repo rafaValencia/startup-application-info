@@ -1,0 +1,635 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Guía de Programas Cloud para Startups</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+            },
+            colors: {
+              stone: {
+                50: "#fafaf9",
+                100: "#f5f5f4",
+                800: "#292524",
+                900: "#1c1917",
+              },
+              accent: {
+                blue: "#3b82f6",
+                green: "#10b981",
+                orange: "#f59e0b",
+              },
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      body {
+        background-color: #fafaf9;
+        color: #292524;
+        font-family: "Inter", sans-serif;
+      }
+      .chart-container {
+        position: relative;
+        width: 100%;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+        height: 350px;
+        max-height: 400px;
+      }
+      @media (min-width: 768px) {
+        .chart-container {
+          height: 400px;
+        }
+      }
+      .tab-btn.active {
+        border-bottom: 2px solid #292524;
+        color: #1c1917;
+        font-weight: 600;
+      }
+      .checklist-item.checked {
+        text-decoration: line-through;
+        color: #a8a29e;
+      }
+    </style>
+  </head>
+  <body class="antialiased pb-20">
+    <!-- Chosen Palette: Warm Neutrals (Stone 50-900) with subtle Blue, Green, and Orange Accents -->
+    <!-- Application Structure Plan: The SPA is structured into a dashboard-like landing page that guides the user chronologically through understanding, evaluating, and applying to startup cloud programs. It begins with a comparative overview to hook the user, followed by an interactive deep-dive into the 'Big 3' providers (AWS, Microsoft, Google) using tabs. Then, it provides an interactive actionable checklist for prerequisites, and concludes with a vertical timeline explaining the application process. This logical flow moves from high-level understanding to actionable steps. -->
+    <!-- Visualization & Content Choices: 1. Overview -> Goal: Compare -> Viz: Radar Chart (Chart.js) -> Interaction: Hover tooltips -> Justification: Radar charts effectively compare multiple variables (credits, support, tools, AI) across different entities simultaneously. 2. Programs Details -> Goal: Inform/Organize -> Viz: Interactive Tabs & Dynamic Text -> Interaction: Click tabs -> Justification: Condenses large amounts of text into consumable chunks. 3. Requirements -> Goal: Action/Inform -> Viz: Interactive Checklist -> Interaction: Click to strike-through -> Justification: Turns passive reading into a progress-tracking task. 4. Process -> Goal: Change/Process -> Viz: CSS/HTML Timeline -> Interaction: Hover effects -> Justification: Clearly delineates sequential steps without complex logic. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <nav class="bg-white border-b border-stone-200 sticky top-0 z-50">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16 items-center">
+          <div
+            class="flex-shrink-0 flex items-center text-xl font-bold text-stone-900"
+          >
+            🚀 StartupCloud Guide
+          </div>
+          <div
+            class="hidden md:flex space-x-8 text-sm font-medium text-stone-600"
+          >
+            <a href="#overview" class="hover:text-stone-900">Comparativa</a>
+            <a href="#programs" class="hover:text-stone-900">Programas</a>
+            <a href="#requirements" class="hover:text-stone-900">Requisitos</a>
+            <a href="#process" class="hover:text-stone-900">Proceso</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <header class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
+      <h1
+        class="text-4xl md:text-5xl font-bold tracking-tight text-stone-900 mb-4"
+      >
+        Potencia tu Startup con el Poder de la Nube
+      </h1>
+      <p class="text-lg md:text-xl text-stone-600 max-w-3xl mx-auto">
+        Descubre, compara y prepárate para aplicar a los mejores programas de
+        aceleración tecnológica que ofrecen Google, Microsoft y AWS. Obtén
+        cientos de miles de dólares en créditos, herramientas y soporte técnico.
+      </p>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-24">
+      <section
+        id="overview"
+        class="bg-white rounded-2xl shadow-sm border border-stone-100 p-6 md:p-10"
+      >
+        <div class="mb-8 text-center">
+          <h2 class="text-3xl font-bold text-stone-900 mb-4">
+            Comparativa de Ecosistemas
+          </h2>
+          <p class="text-stone-600 max-w-2xl mx-auto">
+            Analizamos las dimensiones clave de los programas de los tres
+            gigantes tecnológicos. Este gráfico ilustra la fortaleza relativa en
+            créditos financieros, soporte técnico, ecosistema de herramientas y
+            capacidades de Inteligencia Artificial.
+          </p>
+        </div>
+
+        <div class="chart-container">
+          <canvas id="radarChart"></canvas>
+        </div>
+      </section>
+
+      <section id="programs" class="scroll-mt-20">
+        <div class="mb-8">
+          <h2 class="text-3xl font-bold text-stone-900 mb-4">
+            Análisis de los Grandes 3
+          </h2>
+          <p class="text-stone-600">
+            Explora en detalle lo que cada proveedor tiene para ofrecer.
+            Selecciona una pestaña para ver los créditos máximos, los beneficios
+            exclusivos y los enfoques principales de AWS, Microsoft y Google.
+          </p>
+        </div>
+
+        <div
+          class="bg-white rounded-2xl shadow-sm border border-stone-100 overflow-hidden"
+        >
+          <div class="flex border-b border-stone-200">
+            <button
+              id="btn-aws"
+              class="tab-btn active flex-1 py-4 px-6 text-center text-stone-500 hover:text-stone-900 transition-colors focus:outline-none"
+              onclick="switchTab('aws')"
+            >
+              ☁️ AWS Activate
+            </button>
+            <button
+              id="btn-ms"
+              class="tab-btn flex-1 py-4 px-6 text-center text-stone-500 hover:text-stone-900 transition-colors focus:outline-none"
+              onclick="switchTab('ms')"
+            >
+              💻 Microsoft Founders Hub
+            </button>
+            <button
+              id="btn-google"
+              class="tab-btn flex-1 py-4 px-6 text-center text-stone-500 hover:text-stone-900 transition-colors focus:outline-none"
+              onclick="switchTab('google')"
+            >
+              🔍 Google for Startups
+            </button>
+          </div>
+
+          <div
+            class="p-6 md:p-10 grid grid-cols-1 md:grid-cols-2 gap-8"
+            id="program-content"
+          ></div>
+        </div>
+      </section>
+
+      <section id="requirements" class="scroll-mt-20">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+          <div>
+            <h2 class="text-3xl font-bold text-stone-900 mb-4">
+              Requisitos Generales
+            </h2>
+            <p class="text-stone-600 mb-6">
+              Antes de aplicar a cualquiera de estos programas, existe un
+              estándar de documentación y presencia digital que debes cumplir.
+              Utiliza esta lista interactiva para asegurar que tu startup está
+              lista para la postulación.
+            </p>
+            <div
+              class="bg-accent-blue bg-opacity-10 rounded-lg p-4 border border-accent-blue border-opacity-20 text-stone-800"
+            >
+              <p class="font-medium mb-1">💡 Tip de Postulación</p>
+              <p class="text-sm">
+                Tener un perfil de LinkedIn corporativo activo y correos con
+                dominio propio aumenta tu tasa de aceptación en un 70%. Evita
+                usar correos @gmail.com o @hotmail.com.
+              </p>
+            </div>
+          </div>
+
+          <div
+            class="bg-white rounded-2xl shadow-sm border border-stone-100 p-6"
+          >
+            <h3 class="text-xl font-semibold mb-4 text-stone-900">
+              Checklist de Preparación
+            </h3>
+            <ul class="space-y-3" id="checklist"></ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="process" class="scroll-mt-20">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-bold text-stone-900 mb-4">
+            El Proceso de Postulación
+          </h2>
+          <p class="text-stone-600 max-w-2xl mx-auto">
+            Conoce los pasos secuenciales desde la preparación inicial hasta la
+            recepción de tus créditos y beneficios. Un proceso estructurado
+            garantiza mejores resultados.
+          </p>
+        </div>
+
+        <div class="relative max-w-3xl mx-auto">
+          <div
+            class="absolute inset-0 flex items-center justify-center w-8 h-full left-4 md:left-1/2 md:-ml-4"
+          >
+            <div class="w-1 h-full bg-stone-200"></div>
+          </div>
+
+          <div class="relative z-10 space-y-8">
+            <div
+              class="flex flex-col md:flex-row items-start md:items-center group"
+            >
+              <div class="hidden md:flex w-1/2 pr-8 justify-end text-right">
+                <div>
+                  <h4 class="text-lg font-bold text-stone-900">
+                    1. Preparación
+                  </h4>
+                  <p class="text-sm text-stone-600 mt-1">
+                    Completa el checklist, optimiza tu web y define tu
+                    arquitectura técnica base.
+                  </p>
+                </div>
+              </div>
+              <div
+                class="flex items-center justify-center w-8 h-8 rounded-full bg-stone-900 text-white font-bold border-4 border-white shadow-sm shrink-0 md:mx-auto"
+              >
+                1
+              </div>
+              <div class="md:hidden ml-4 pb-4">
+                <h4 class="text-lg font-bold text-stone-900">1. Preparación</h4>
+                <p class="text-sm text-stone-600 mt-1">
+                  Completa el checklist, optimiza tu web y define tu
+                  arquitectura técnica base.
+                </p>
+              </div>
+              <div class="hidden md:block w-1/2 pl-8"></div>
+            </div>
+
+            <div
+              class="flex flex-col md:flex-row items-start md:items-center group"
+            >
+              <div class="hidden md:block w-1/2 pr-8"></div>
+              <div
+                class="flex items-center justify-center w-8 h-8 rounded-full bg-stone-900 text-white font-bold border-4 border-white shadow-sm shrink-0 md:mx-auto"
+              >
+                2
+              </div>
+              <div class="md:hidden ml-4 pb-4">
+                <h4 class="text-lg font-bold text-stone-900">
+                  2. Selección y Registro
+                </h4>
+                <p class="text-sm text-stone-600 mt-1">
+                  Elige el programa adecuado según tu pila tecnológica. Crea la
+                  cuenta en la nube correspondiente (AWS, Azure, GCP).
+                </p>
+              </div>
+              <div class="hidden md:flex w-1/2 pl-8 text-left">
+                <div>
+                  <h4 class="text-lg font-bold text-stone-900">
+                    2. Selección y Registro
+                  </h4>
+                  <p class="text-sm text-stone-600 mt-1">
+                    Elige el programa adecuado según tu pila tecnológica. Crea
+                    la cuenta en la nube correspondiente (AWS, Azure, GCP).
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="flex flex-col md:flex-row items-start md:items-center group"
+            >
+              <div class="hidden md:flex w-1/2 pr-8 justify-end text-right">
+                <div>
+                  <h4 class="text-lg font-bold text-stone-900">
+                    3. Postulación Oficial
+                  </h4>
+                  <p class="text-sm text-stone-600 mt-1">
+                    Llena el formulario detallando tu modelo de negocio,
+                    innovación tecnológica y uso proyectado de la nube.
+                  </p>
+                </div>
+              </div>
+              <div
+                class="flex items-center justify-center w-8 h-8 rounded-full bg-stone-900 text-white font-bold border-4 border-white shadow-sm shrink-0 md:mx-auto"
+              >
+                3
+              </div>
+              <div class="md:hidden ml-4 pb-4">
+                <h4 class="text-lg font-bold text-stone-900">
+                  3. Postulación Oficial
+                </h4>
+                <p class="text-sm text-stone-600 mt-1">
+                  Llena el formulario detallando tu modelo de negocio,
+                  innovación tecnológica y uso proyectado de la nube.
+                </p>
+              </div>
+              <div class="hidden md:block w-1/2 pl-8"></div>
+            </div>
+
+            <div
+              class="flex flex-col md:flex-row items-start md:items-center group"
+            >
+              <div class="hidden md:block w-1/2 pr-8"></div>
+              <div
+                class="flex items-center justify-center w-8 h-8 rounded-full bg-stone-900 text-white font-bold border-4 border-white shadow-sm shrink-0 md:mx-auto"
+              >
+                4
+              </div>
+              <div class="md:hidden ml-4 pb-4">
+                <h4 class="text-lg font-bold text-stone-900">
+                  4. Evaluación y Aprobación
+                </h4>
+                <p class="text-sm text-stone-600 mt-1">
+                  El equipo del proveedor revisa la solicitud. Puede tomar de 3
+                  a 15 días hábiles. Mantente atento al correo corporativo.
+                </p>
+              </div>
+              <div class="hidden md:flex w-1/2 pl-8 text-left">
+                <div>
+                  <h4 class="text-lg font-bold text-stone-900">
+                    4. Evaluación y Aprobación
+                  </h4>
+                  <p class="text-sm text-stone-600 mt-1">
+                    El equipo del proveedor revisa la solicitud. Puede tomar de
+                    3 a 15 días hábiles. Mantente atento al correo corporativo.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="flex flex-col md:flex-row items-start md:items-center group"
+            >
+              <div class="hidden md:flex w-1/2 pr-8 justify-end text-right">
+                <div>
+                  <h4 class="text-lg font-bold text-stone-900">
+                    5. Onboarding
+                  </h4>
+                  <p class="text-sm text-stone-600 mt-1">
+                    Recepción de créditos, acceso a portales exclusivos de
+                    startups y asignación de arquitectos de soluciones.
+                  </p>
+                </div>
+              </div>
+              <div
+                class="flex items-center justify-center w-8 h-8 rounded-full bg-accent-green text-white font-bold border-4 border-white shadow-sm shrink-0 md:mx-auto"
+              >
+                5
+              </div>
+              <div class="md:hidden ml-4 pb-4">
+                <h4 class="text-lg font-bold text-stone-900">5. Onboarding</h4>
+                <p class="text-sm text-stone-600 mt-1">
+                  Recepción de créditos, acceso a portales exclusivos de
+                  startups y asignación de arquitectos de soluciones.
+                </p>
+              </div>
+              <div class="hidden md:block w-1/2 pl-8"></div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="flex justify-center mt-12 mb-10 pt-8 border-t border-slate-200"
+        >
+          <a
+            href="../index.html"
+            class="group inline-flex items-center gap-2 px-6 py-3 bg-white text-indigo-600 font-semibold rounded-xl border border-slate-200 shadow-sm hover:shadow-md hover:border-indigo-600 hover:-translate-x-1 transition-all duration-200"
+          >
+            <span
+              class="text-xl transition-transform group-hover:-translate-x-1"
+              >&larr;</span
+            >
+            Volver al Portal de Onboarding
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="bg-stone-900 text-stone-400 py-8 mt-24 text-center text-sm">
+      <p>© 2026 StartupCloud Guide. Diseño e Información Arquitectónica.</p>
+    </footer>
+
+    <script>
+      const radarData = {
+        labels: [
+          "Créditos Nube ($)",
+          "Modelos de IA (Acceso)",
+          "Soporte Técnico",
+          "Herramientas SaaS",
+          "Ecosistema VC/Partners",
+        ],
+        datasets: [
+          {
+            label: "AWS Activate",
+            data: [8, 7, 9, 7, 10],
+            fill: true,
+            backgroundColor: "rgba(59, 130, 246, 0.2)",
+            borderColor: "rgb(59, 130, 246)",
+            pointBackgroundColor: "rgb(59, 130, 246)",
+            pointBorderColor: "#fff",
+            pointHoverBackgroundColor: "#fff",
+            pointHoverBorderColor: "rgb(59, 130, 246)",
+          },
+          {
+            label: "Microsoft Founders Hub",
+            data: [9, 10, 8, 10, 8],
+            fill: true,
+            backgroundColor: "rgba(16, 185, 129, 0.2)",
+            borderColor: "rgb(16, 185, 129)",
+            pointBackgroundColor: "rgb(16, 185, 129)",
+            pointBorderColor: "#fff",
+            pointHoverBackgroundColor: "#fff",
+            pointHoverBorderColor: "rgb(16, 185, 129)",
+          },
+          {
+            label: "Google for Startups",
+            data: [10, 9, 8, 8, 7],
+            fill: true,
+            backgroundColor: "rgba(245, 158, 11, 0.2)",
+            borderColor: "rgb(245, 158, 11)",
+            pointBackgroundColor: "rgb(245, 158, 11)",
+            pointBorderColor: "#fff",
+            pointHoverBackgroundColor: "#fff",
+            pointHoverBorderColor: "rgb(245, 158, 11)",
+          },
+        ],
+      };
+
+      const ctxRadar = document.getElementById("radarChart").getContext("2d");
+      new Chart(ctxRadar, {
+        type: "radar",
+        data: radarData,
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            r: {
+              angleLines: { color: "rgba(0, 0, 0, 0.05)" },
+              grid: { color: "rgba(0, 0, 0, 0.05)" },
+              pointLabels: {
+                font: { family: "Inter", size: 12 },
+                color: "#444",
+              },
+              ticks: { display: false, min: 0, max: 10 },
+            },
+          },
+          plugins: {
+            legend: {
+              position: "bottom",
+              labels: {
+                font: { family: "Inter" },
+                usePointStyle: true,
+                padding: 20,
+              },
+            },
+            tooltip: {
+              backgroundColor: "rgba(28, 25, 23, 0.9)",
+              titleFont: { family: "Inter", size: 14 },
+              bodyFont: { family: "Inter", size: 13 },
+              padding: 12,
+              cornerRadius: 8,
+            },
+          },
+        },
+      });
+
+      const programsData = {
+        aws: {
+          title: "AWS Activate",
+          maxCredits: "Hasta $100,000 USD",
+          focus:
+            "Infraestructura robusta, escalabilidad extrema y el ecosistema más amplio de partners.",
+          benefits: [
+            "Créditos escalonados ($1k, $5k, $10k, $100k) dependiendo de rondas de inversión.",
+            "$1,500 en créditos de soporte AWS Business.",
+            "Ofertas exclusivas de socios (Stripe, Notion, Airtable).",
+            "Plantillas de infraestructura pre-configuradas.",
+          ],
+          reqs: [
+            "Empresa de tecnología o producto digital propio.",
+            "No haber recibido más de $100k en créditos Activate previamente.",
+            "Tener cuenta activa de AWS.",
+            "Para el tier de $100k, requerir asociación con un VC, aceleradora o incubadora partner de AWS.",
+          ],
+        },
+        ms: {
+          title: "Microsoft for Startups Founders Hub",
+          maxCredits: "Hasta $150,000 USD",
+          focus:
+            "Startups centradas en B2B, Inteligencia Artificial y ecosistema SaaS.",
+          benefits: [
+            "Hasta $150,000 en créditos de Azure a medida que creces.",
+            "Acceso gratuito a modelos de OpenAI (API).",
+            "Licencias gratuitas de Microsoft 365, GitHub Enterprise y Visual Studio.",
+            "Oportunidades de venta conjunta (Co-sell) con la red comercial de Microsoft.",
+          ],
+          reqs: [
+            "Estar desarrollando una solución o producto basado en software.",
+            "Ser una empresa privada con fines de lucro y no haber realizado un exit.",
+            "Menos de 10 años de fundación.",
+            "No importa si tienes inversión (Bootstrapped startups son bienvenidas).",
+          ],
+        },
+        google: {
+          title: "Google for Startups Cloud Program",
+          maxCredits: "Hasta $350,000 USD (Startups de IA)",
+          focus:
+            "Startups enfocadas en Data, Machine Learning, IA generativa y Web3.",
+          benefits: [
+            "Startups estándar: Hasta $100,000 el primer año, 20% cubierto el segundo (hasta $100k adicionales).",
+            "Startups de IA: Hasta $350,000 para cómputo especializado (GPUs/TPUs).",
+            "Google Workspace e infraestructura de Google Maps Platform gratis o con descuento.",
+            "Acceso a la comunidad Web3 o AI con eventos exclusivos.",
+          ],
+          reqs: [
+            "Tener una cuenta de facturación en Google Cloud.",
+            "Ser un negocio tecnológico emergente.",
+            "No haber recibido créditos de este programa anteriormente.",
+            "Para el tier de IA, demostrar un uso intensivo de modelos de lenguaje o machine learning en el núcleo del negocio.",
+          ],
+        },
+      };
+
+      function switchTab(tabId) {
+        document
+          .querySelectorAll(".tab-btn")
+          .forEach((btn) => btn.classList.remove("active"));
+        document.getElementById("btn-" + tabId).classList.add("active");
+
+        const data = programsData[tabId];
+
+        let benefitsHtml = "";
+        data.benefits.forEach((b) => {
+          benefitsHtml += `<li class="flex items-start"><span class="mr-2">✨</span><span>${b}</span></li>`;
+        });
+
+        let reqsHtml = "";
+        data.reqs.forEach((r) => {
+          reqsHtml += `<li class="flex items-start"><span class="mr-2">📌</span><span>${r}</span></li>`;
+        });
+
+        const contentHtml = `
+                <div>
+                    <h3 class="text-2xl font-bold text-stone-900 mb-2">${data.title}</h3>
+                    <p class="text-accent-blue font-semibold text-lg mb-4">Créditos: ${data.maxCredits}</p>
+                    <p class="text-stone-600 mb-6">${data.focus}</p>
+                    
+                    <h4 class="text-lg font-semibold text-stone-900 mb-3 border-b border-stone-200 pb-2">Beneficios Clave</h4>
+                    <ul class="space-y-2 text-stone-600 text-sm mb-6">
+                        ${benefitsHtml}
+                    </ul>
+                </div>
+                <div>
+                    <div class="bg-stone-50 rounded-xl p-6 border border-stone-100 h-full">
+                        <h4 class="text-lg font-semibold text-stone-900 mb-3 border-b border-stone-200 pb-2">Requisitos Específicos</h4>
+                        <ul class="space-y-3 text-stone-600 text-sm">
+                            ${reqsHtml}
+                        </ul>
+                    </div>
+                </div>
+            `;
+
+        const container = document.getElementById("program-content");
+        container.style.opacity = 0;
+        setTimeout(() => {
+          container.innerHTML = contentHtml;
+          container.style.opacity = 1;
+          container.style.transition = "opacity 0.3s ease";
+        }, 150);
+      }
+
+      switchTab("aws");
+
+      const checklistItems = [
+        "Dominio web propio y sitio web funcional (aunque sea un landing page sólido).",
+        "Correo electrónico corporativo (ej. nombre@tustartup.com).",
+        "Perfil corporativo de la empresa creado en LinkedIn.",
+        "Perfiles de LinkedIn de los fundadores actualizados, listando la startup como empleo actual.",
+        "Pitch Deck o documento de una página (One Pager) describiendo el producto de software.",
+        "Evidencia de constitución legal (Requerido para tiers altos, no siempre para tiers fundadores).",
+        "Si aplica, enlace al portal de la incubadora, aceleradora o fondo de VC que los respalda.",
+      ];
+
+      const checklistContainer = document.getElementById("checklist");
+
+      checklistItems.forEach((item, index) => {
+        const li = document.createElement("li");
+        li.className = "flex items-start cursor-pointer group";
+        li.innerHTML = `
+                <div class="flex-shrink-0 mt-1 mr-3 w-5 h-5 border-2 border-stone-300 rounded flex items-center justify-center group-hover:border-accent-blue transition-colors check-box"></div>
+                <span class="text-stone-700 text-sm transition-colors text-content">${item}</span>
+            `;
+
+        li.addEventListener("click", function () {
+          const box = this.querySelector(".check-box");
+          const text = this.querySelector(".text-content");
+          const isChecked = box.classList.contains("bg-accent-blue");
+
+          if (isChecked) {
+            box.classList.remove("bg-accent-blue", "border-accent-blue");
+            box.innerHTML = "";
+            text.classList.remove("line-through", "text-stone-400");
+          } else {
+            box.classList.add("bg-accent-blue", "border-accent-blue");
+            box.innerHTML =
+              '<span class="text-white text-xs font-bold">✓</span>';
+            text.classList.add("line-through", "text-stone-400");
+          }
+        });
+
+        checklistContainer.appendChild(li);
+      });
+    </script>
+  </body>
+</html>

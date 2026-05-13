@@ -1,0 +1,513 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Infografía: Guía Definitiva de Programas Cloud para Startups</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Poppins", "sans-serif"],
+            },
+            colors: {
+              brand: {
+                bg: "#F8FAFC",
+                text: "#0F172A",
+                aws: "#FF9900",
+                ms: "#00A4EF",
+                google: "#34A853",
+                accent: "#6366F1",
+              },
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      body {
+        background-color: #f8fafc;
+        color: #0f172a;
+      }
+      .chart-container {
+        position: relative;
+        width: 100%;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+        height: 350px;
+        max-height: 400px;
+      }
+      @media (min-width: 768px) {
+        .chart-container {
+          height: 400px;
+        }
+      }
+      .timeline-bullet {
+        position: absolute;
+        left: -29px;
+        top: 0;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        border: 4px solid white;
+      }
+      .glass-card {
+        background: rgba(255, 255, 255, 0.9);
+        box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        border-radius: 1rem;
+      }
+    </style>
+  </head>
+  <body class="antialiased">
+    <!-- Chosen Palette: Energetic Tech (Vibrant Blue, Orange, Green on Slate/White background) -->
+    <!-- Application Structure Plan: The infographic follows a logical conversion funnel structure for a founder. 1. Hook/Introduction (Big stats on savings). 2. Comparison (Radar & Bar charts to compare AWS, Azure, Google). 3. Deep Dive (Grid layout detailing requirements and benefits). 4. Actionable Process (CSS Timeline mapping the exact application steps). -->
+    <!-- Visualization & Content Choices: 
+         - Data Point: Max Credits -> Goal: Compare -> Viz: Horizontal Bar Chart (Chart.js) -> Justification: Easily compares maximum financial value across the 3 providers. NO SVG used.
+         - Data Point: Program Focus Areas -> Goal: Compare/Relationships -> Viz: Radar Chart (Chart.js) -> Justification: Shows multi-dimensional strengths (AI, SaaS, Ecosystem) of each cloud provider. NO SVG used.
+         - Data Point: Prerequisites -> Goal: Organize -> Viz: CSS Grid Cards with Unicode Icons -> Justification: Breaks down strict text requirements into readable, visually distinct chunks. NO SVG used.
+         - Data Point: Application Process -> Goal: Change/Process -> Viz: CSS/HTML Vertical Timeline -> Justification: Clearly illustrates the chronological steps from preparation to approval without relying on external diagramming tools. NO Mermaid/SVG used.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+      <div
+        class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center"
+      >
+        <div class="font-bold text-2xl tracking-tighter text-brand-accent">
+          ☁️ StartupCloud<span class="text-brand-text">Infographic</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 py-12 space-y-20">
+      <section class="text-center space-y-6">
+        <h1
+          class="text-4xl md:text-6xl font-extrabold tracking-tight text-brand-text"
+        >
+          Impulsa tu Startup con el
+          <span
+            class="text-transparent bg-clip-text bg-gradient-to-r from-brand-aws via-brand-ms to-brand-google"
+            >Poder de la Nube</span
+          >
+        </h1>
+        <p class="text-lg md:text-xl text-slate-600 max-w-3xl mx-auto">
+          Las principales empresas tecnológicas (Google, Microsoft, AWS) ofrecen
+          programas de aceleración para startups de alto impacto. Obtén
+          infraestructura gratuita, herramientas de IA y soporte experto para
+          escalar sin consumir tu capital inicial.
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-10">
+          <div
+            class="glass-card p-8 transform hover:-translate-y-2 transition-transform"
+          >
+            <div class="text-5xl mb-4">💰</div>
+            <div class="text-4xl font-bold text-brand-text mb-2">
+              Hasta $350k
+            </div>
+            <div class="text-slate-500">En créditos gratuitos (USD)</div>
+          </div>
+          <div
+            class="glass-card p-8 transform hover:-translate-y-2 transition-transform"
+          >
+            <div class="text-5xl mb-4">🤖</div>
+            <div class="text-4xl font-bold text-brand-text mb-2">IA & APIs</div>
+            <div class="text-slate-500">
+              Acceso a modelos top (OpenAI, Gemini)
+            </div>
+          </div>
+          <div
+            class="glass-card p-8 transform hover:-translate-y-2 transition-transform"
+          >
+            <div class="text-5xl mb-4">🤝</div>
+            <div class="text-4xl font-bold text-brand-text mb-2">
+              Soporte 1:1
+            </div>
+            <div class="text-slate-500">
+              Arquitectos de soluciones dedicados
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="glass-card p-8 md:p-12">
+        <h2 class="text-3xl font-bold mb-4">
+          Comparativa de Titanes: AWS vs Microsoft vs Google
+        </h2>
+        <p class="text-slate-600 mb-10">
+          No todos los programas son iguales. Mientras AWS brilla por su inmenso
+          ecosistema de partners, Microsoft lidera en integración de software
+          (GitHub, Office) y acceso a OpenAI. Google for Startups se posiciona
+          como el rey indiscutible para empresas intensivas en datos y
+          entrenamiento de Inteligencia Artificial.
+        </p>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div class="space-y-6">
+            <h3 class="text-xl font-semibold text-center">
+              Créditos Máximos Ofrecidos (USD)
+            </h3>
+            <div class="chart-container">
+              <canvas id="barChart"></canvas>
+            </div>
+          </div>
+
+          <div class="space-y-6">
+            <h3 class="text-xl font-semibold text-center">
+              Fortalezas por Ecosistema
+            </h3>
+            <div class="chart-container">
+              <canvas id="radarChart"></canvas>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="space-y-10">
+        <div class="text-center">
+          <h2 class="text-3xl font-bold mb-4">
+            Requisitos Indispensables para Postular
+          </h2>
+          <p class="text-slate-600 max-w-2xl mx-auto">
+            Los proveedores filtran rigurosamente. Para asegurar la aprobación
+            de tus créditos, tu startup debe demostrar profesionalismo, un
+            producto basado en tecnología y un equipo sólido. Asegúrate de
+            cumplir con este checklist antes de enviar cualquier formulario.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div
+            class="bg-white p-6 rounded-xl shadow-sm border-t-4 border-slate-800"
+          >
+            <div class="text-3xl mb-3">🌐</div>
+            <h3 class="font-bold text-lg mb-2">Presencia Digital</h3>
+            <ul class="text-sm text-slate-600 space-y-2">
+              <li>• Dominio web propio activo.</li>
+              <li>• Sitio web funcional o Landing Page profesional.</li>
+              <li>
+                • Correos corporativos (Ej: founders@tustartup.com). NO
+                Gmail/Hotmail.
+              </li>
+            </ul>
+          </div>
+
+          <div
+            class="bg-white p-6 rounded-xl shadow-sm border-t-4 border-brand-ms"
+          >
+            <div class="text-3xl mb-3">💼</div>
+            <h3 class="font-bold text-lg mb-2">Perfil Corporativo</h3>
+            <ul class="text-sm text-slate-600 space-y-2">
+              <li>• Página de empresa en LinkedIn creada y optimizada.</li>
+              <li>
+                • Perfiles de fundadores vinculados a la empresa en LinkedIn.
+              </li>
+              <li>• Menos de 10 años desde su fundación.</li>
+            </ul>
+          </div>
+
+          <div
+            class="bg-white p-6 rounded-xl shadow-sm border-t-4 border-brand-aws"
+          >
+            <div class="text-3xl mb-3">📑</div>
+            <h3 class="font-bold text-lg mb-2">Documentación</h3>
+            <ul class="text-sm text-slate-600 space-y-2">
+              <li>• Pitch Deck actualizado (formato PDF).</li>
+              <li>
+                • Breve descripción técnica de la arquitectura de tu producto.
+              </li>
+              <li>
+                • Prueba de incorporación legal (opcional en tiers iniciales,
+                obligatorio para grandes montos).
+              </li>
+            </ul>
+          </div>
+
+          <div
+            class="bg-white p-6 rounded-xl shadow-sm border-t-4 border-brand-google"
+          >
+            <div class="text-3xl mb-3">🚀</div>
+            <h3 class="font-bold text-lg mb-2">Naturaleza del Negocio</h3>
+            <ul class="text-sm text-slate-600 space-y-2">
+              <li>
+                • Ser una empresa de producto tecnológico o software (SaaS, App,
+                IA).
+              </li>
+              <li>
+                • Agencias de desarrollo, consultoras o e-commerce tradicionales
+                suelen ser rechazados.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="glass-card p-8 md:p-12 mb-20">
+        <h2 class="text-3xl font-bold mb-4 text-center">
+          El Proceso de Postulación Paso a Paso
+        </h2>
+        <p class="text-slate-600 max-w-2xl mx-auto text-center mb-12">
+          Conoce el flujo exacto desde que decides aplicar hasta que recibes tus
+          credenciales y créditos. Este proceso estándar aplica para los tres
+          grandes proveedores.
+        </p>
+
+        <div
+          class="max-w-3xl mx-auto pl-6 border-l-4 border-brand-accent space-y-12 relative"
+        >
+          <div class="relative pl-6">
+            <div class="timeline-bullet bg-brand-accent"></div>
+            <h3 class="text-2xl font-bold text-brand-text">
+              1. Creación de Cuenta Base
+            </h3>
+            <p class="text-slate-600 mt-2">
+              Antes de aplicar al programa de startups, debes crear una cuenta
+              estándar de facturación en la plataforma elegida (Consola de AWS,
+              Azure Portal o Google Cloud Console). Requerirás una tarjeta de
+              crédito válida para verificación (no se realizarán cobros si te
+              aprueban los créditos).
+            </p>
+          </div>
+
+          <div class="relative pl-6">
+            <div class="timeline-bullet bg-brand-aws"></div>
+            <h3 class="text-2xl font-bold text-brand-text">
+              2. Envío de la Solicitud (Application)
+            </h3>
+            <p class="text-slate-600 mt-2">
+              Accede al portal específico (AWS Activate, Microsoft Founders Hub,
+              Google for Startups) y completa el formulario. Deberás adjuntar tu
+              Pitch Deck, describir tu tecnología y proporcionar el
+              "Organization ID" o ID de facturación generado en el paso 1.
+            </p>
+          </div>
+
+          <div class="relative pl-6">
+            <div class="timeline-bullet bg-brand-ms"></div>
+            <h3 class="text-2xl font-bold text-brand-text">
+              3. Proceso de Revisión
+            </h3>
+            <p class="text-slate-600 mt-2">
+              El equipo de evaluación del proveedor revisará tu solicitud
+              manualmente. Evalúan la innovación tecnológica, el potencial de
+              escala y el cumplimiento de requisitos. Este proceso suele tardar
+              entre <strong>3 a 15 días hábiles</strong>.
+            </p>
+          </div>
+
+          <div class="relative pl-6">
+            <div class="timeline-bullet bg-brand-google"></div>
+            <h3 class="text-2xl font-bold text-brand-text">
+              4. Aprobación y Onboarding
+            </h3>
+            <p class="text-slate-600 mt-2">
+              Recibirás un correo electrónico de bienvenida. Los créditos se
+              aplican automáticamente a tu cuenta de facturación. Tendrás acceso
+              inmediato a portales exclusivos para agendar mentorías, reclamar
+              licencias de software (ej. Office 365, GitHub) y comenzar a
+              construir.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div class="flex justify-center mt-12 mb-10 pt-8 border-t border-slate-200">
+      <a
+        href="../index.html"
+        class="group inline-flex items-center gap-2 px-6 py-3 bg-white text-indigo-600 font-semibold rounded-xl border border-slate-200 shadow-sm hover:shadow-md hover:border-indigo-600 hover:-translate-x-1 transition-all duration-200"
+      >
+        <span class="text-xl transition-transform group-hover:-translate-x-1"
+          >&larr;</span
+        >
+        Volver al Portal de Onboarding
+      </a>
+    </div>
+
+    <footer class="bg-slate-900 text-slate-400 py-8 text-center text-sm">
+      <div class="max-w-7xl mx-auto px-4">
+        <p>
+          Guía Infográfica interactiva - Diseñado con Tailwind CSS & Chart.js
+        </p>
+        <p class="mt-2">
+          Datos basados en programas vigentes. Los montos y requisitos pueden
+          variar según el proveedor.
+        </p>
+      </div>
+    </footer>
+
+    <script>
+      function wrapLabel(label) {
+        if (label.length <= 16) return label;
+        const words = label.split(" ");
+        const lines = [];
+        let currentLine = "";
+        words.forEach((word) => {
+          if ((currentLine + word).length > 16) {
+            if (currentLine.trim() !== "") lines.push(currentLine.trim());
+            currentLine = word + " ";
+          } else {
+            currentLine += word + " ";
+          }
+        });
+        if (currentLine.trim() !== "") lines.push(currentLine.trim());
+        return lines;
+      }
+
+      const barCtx = document.getElementById("barChart").getContext("2d");
+      const rawBarLabels = [
+        "AWS Activate",
+        "Microsoft Founders Hub",
+        "Google for Startups (AI Tier)",
+      ];
+      const processedBarLabels = rawBarLabels.map((label) => wrapLabel(label));
+
+      new Chart(barCtx, {
+        type: "bar",
+        data: {
+          labels: processedBarLabels,
+          datasets: [
+            {
+              label: "Créditos Máximos (Miles USD)",
+              data: [100, 150, 350],
+              backgroundColor: ["#FF9900", "#00A4EF", "#34A853"],
+              borderRadius: 6,
+              borderWidth: 0,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          indexAxis: "y",
+          scales: {
+            x: {
+              beginAtZero: true,
+              grid: { display: false },
+              ticks: {
+                font: { family: "Poppins" },
+              },
+            },
+            y: {
+              grid: { display: false },
+              ticks: {
+                font: { family: "Poppins", weight: "600" },
+              },
+            },
+          },
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                title: function (tooltipItems) {
+                  const item = tooltipItems[0];
+                  let label = item.chart.data.labels[item.dataIndex];
+                  if (Array.isArray(label)) {
+                    return label.join(" ");
+                  } else {
+                    return label;
+                  }
+                },
+                label: function (context) {
+                  return "$" + context.raw + ",000 USD";
+                },
+              },
+            },
+          },
+        },
+      });
+
+      const radarCtx = document.getElementById("radarChart").getContext("2d");
+      const rawRadarLabels = [
+        "Créditos Iniciales",
+        "Ecosistema de Partners y VC",
+        "Herramientas SaaS Incluidas",
+        "Modelos de Inteligencia Artificial",
+        "Soporte y Arquitectura",
+      ];
+      const processedRadarLabels = rawRadarLabels.map((label) =>
+        wrapLabel(label),
+      );
+
+      new Chart(radarCtx, {
+        type: "radar",
+        data: {
+          labels: processedRadarLabels,
+          datasets: [
+            {
+              label: "AWS Activate",
+              data: [7, 10, 6, 7, 9],
+              backgroundColor: "rgba(255, 153, 0, 0.2)",
+              borderColor: "#FF9900",
+              pointBackgroundColor: "#FF9900",
+              borderWidth: 2,
+            },
+            {
+              label: "MS Founders Hub",
+              data: [8, 8, 10, 9, 8],
+              backgroundColor: "rgba(0, 164, 239, 0.2)",
+              borderColor: "#00A4EF",
+              pointBackgroundColor: "#00A4EF",
+              borderWidth: 2,
+            },
+            {
+              label: "Google for Startups",
+              data: [10, 7, 7, 10, 8],
+              backgroundColor: "rgba(52, 168, 83, 0.2)",
+              borderColor: "#34A853",
+              pointBackgroundColor: "#34A853",
+              borderWidth: 2,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            r: {
+              angleLines: { color: "rgba(0,0,0,0.1)" },
+              grid: { color: "rgba(0,0,0,0.1)" },
+              pointLabels: {
+                font: { family: "Poppins", size: 11 },
+                color: "#475569",
+              },
+              ticks: { display: false, min: 0, max: 10 },
+            },
+          },
+          plugins: {
+            legend: {
+              position: "bottom",
+              labels: {
+                font: { family: "Poppins" },
+                padding: 20,
+                usePointStyle: true,
+              },
+            },
+            tooltip: {
+              callbacks: {
+                title: function (tooltipItems) {
+                  const item = tooltipItems[0];
+                  let label = item.chart.data.labels[item.dataIndex];
+                  if (Array.isArray(label)) {
+                    return label.join(" ");
+                  } else {
+                    return label;
+                  }
+                },
+              },
+            },
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
